@@ -4,7 +4,7 @@ import { supabase } from '../../../lib/supabase';
 import PublicNavbar from '../../../components/PublicNavbar';
 
 export default function DepartmentContent({ params }: { params: Promise<{ id: string }> }) {
-  // Unwrap the promise here inside the client component
+  // Unwrap the promise inside the client component
   const resolvedParams = use(params);
   const departmentId = resolvedParams.id;
 
@@ -32,7 +32,6 @@ export default function DepartmentContent({ params }: { params: Promise<{ id: st
     <div className="min-h-screen bg-gray-50 font-sans">
       <PublicNavbar />
       
-      {/* HERO SECTION */}
       <div className="text-white py-16 px-6 text-center" style={{ backgroundColor: dept.color_hex || '#1e3a8a' }}>
         {dept.logo_url && <img src={dept.logo_url} alt="logo" className="w-24 h-24 mx-auto rounded-full bg-white p-2 mb-4 object-cover shadow-lg" />}
         <h1 className="text-4xl font-extrabold mb-2">{dept.name}</h1>

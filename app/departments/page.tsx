@@ -32,17 +32,14 @@ export default function Departments() {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {departments.map((dept) => (
-              /* THE LINK WRAPS THE ENTIRE CARD */
               <Link 
                 href={`/departments/${dept.id}`} 
                 key={dept.id} 
                 className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 block cursor-pointer group"
               >
-                {/* Top color bar based on database color_hex */}
                 <div className="h-4 w-full" style={{ backgroundColor: dept.color_hex || '#1e3a8a' }}></div>
                 
                 <div className="p-6 text-center">
-                  {/* LOGO OR FALLBACK LETTER */}
                   {dept.logo_url ? (
                     <img 
                       src={dept.logo_url} 
