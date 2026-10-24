@@ -1,9 +1,13 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { supabase } from '../../../lib/supabase';
 import PublicNavbar from '../../../components/PublicNavbar';
 
-export default function DepartmentContent({ departmentId }: { departmentId: string }) {
+export default function DepartmentContent({ params }: { params: Promise<{ id: string }> }) {
+  // Unwrap the promise here inside the client component
+  const resolvedParams = use(params);
+  const departmentId = resolvedParams.id;
+
   const [dept, setDept] = useState<any>(null);
   const [updates, setUpdates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +52,11 @@ export default function DepartmentContent({ departmentId }: { departmentId: stri
           <div className="space-y-6">
             {updates.map((update) => (
               <div key={update.id} className="bg-white rounded-xl shadow-sm border-l-4 p-6" style={{ borderColor: dept.color_hex }}>
+                {update.image_url && (
+                  <div className="w-full bg-gray-100 flex justify-center mb-4 rounded-lg overflow-hidden">
+                    <img src={update.image_url} alt={update.title} className="w-full h-auto max-h-[400px] object-contain" />
+                  </div>
+                )}
                 <h3 className="text-xl font-bold text-gray-800 mb-2">{update.title}</h3>
                 <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">{update.content}</p>
                 <p className="text-xs text-gray-400 mt-4">{new Date(update.created_at).toLocaleDateString()}</p>
